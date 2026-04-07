@@ -1,73 +1,101 @@
-# React + TypeScript + Vite
+# Splitwise Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is the frontend application for the Splitwise backend API.
 
-Currently, two official plugins are available:
+It provides a clean, fast, and user-friendly interface to manage groups, add expenses, track balances, and settle dues.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Purpose
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This app is built to work with your backend service and consumes backend APIs for:
 
-## Expanding the ESLint configuration
+- authentication,
+- group management,
+- expense management,
+- balance calculations,
+- settlement tracking,
+- dashboard summaries.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## How The App Works
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. User registers or logs in.
+2. JWT token is stored in frontend state and sent with protected API requests.
+3. User creates groups and adds members.
+4. Expenses are added with supported split types: EQUAL, EXACT, PERCENTAGE, SHARES.
+5. Balances and settlement suggestions are shown for each group.
+6. Eligible users can settle dues.
+7. Dashboard shows totals, group summaries, and person-to-person balances.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## Frontend UI and UX Improvements
+
+The frontend has been improved for better usability and smoother user flow:
+
+- Dashboard-first navigation after login/register.
+- Header navigation with quick access to Dashboard and Groups.
+- Profile popover in header with user details and logout.
+- Better group detail layout with tabs for Expenses, Balances, Settlements.
+- Members side panel with name and user ID visibility.
+- Permission-aware actions (delete/settle visibility and behavior aligned with backend rules).
+- Improved Add Expense modal layout and responsive alignment.
+- Clear split status labels such as paid by, owes, and settled.
+- Balances view with filters:
+  - Balance Debts,
+  - Settlement Suggestions,
+  - Expense-Wise Member Splits.
+- Improved loading states and feedback using skeletons and toast notifications.
+- Refined shared button interactions and hover effects for consistency.
+
+---
+
+## Tech Stack
+
+- React
+- TypeScript
+- Vite
+- React Router
+- Zustand
+- Axios
+
+---
+
+## Run Locally
+
+Install dependencies:
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Start development server:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+Preview build:
+
+```bash
+npm run preview
+```
+
+---
+
+## Backend Connection
+
+The Vite dev server proxies API requests to backend:
+
+- frontend request base: `/api`
+- backend target (dev): `http://localhost:8080`
+
+Make sure backend is running before testing authenticated flows.
