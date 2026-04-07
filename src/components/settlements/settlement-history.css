@@ -1,0 +1,45 @@
+.settlement-history-panel {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.settlement-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.settlement-item {
+  border: var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: 0.8rem 0.95rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.settlement-title {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.settlement-amount {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.settlement-date {
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+}
+
+.settlement-skeleton-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.settlement-item-skeleton {
+  gap: 0.5rem;
+}

@@ -1,0 +1,183 @@
+.balance-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.balance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.balance-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.balance-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.balance-row {
+  border: var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: 0.75rem 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.balance-user {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.balance-text {
+  font-weight: 600;
+}
+
+.balance-text.is-positive {
+  color: #166534;
+}
+
+.balance-text.is-negative {
+  color: #b91c1c;
+}
+
+.balance-text.is-neutral {
+  color: #6b7280;
+}
+
+.suggestions-wrap {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.suggestions-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.suggestions-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.suggestion-row {
+  border: var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: 0.75rem 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.suggestion-text {
+  color: var(--color-text);
+}
+
+.balance-filter {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.balance-filter-select {
+  border: var(--border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 0.5rem 0.65rem;
+  min-width: 220px;
+  font-weight: 600;
+}
+
+.expense-balance-wrap {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.expense-balance-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.expense-balance-card {
+  border: var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: 0.8rem 0.9rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.expense-balance-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.expense-balance-title {
+  margin: 0;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.expense-balance-total {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.expense-balance-splits {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.expense-balance-row {
+  border: 1px solid #edf1f4;
+  border-radius: var(--radius-sm);
+  background: #fbfcfd;
+  padding: 0.45rem 0.55rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.expense-balance-user {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.expense-balance-amount {
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.expense-balance-amount.is-paid {
+  color: #0f766e;
+}
+
+.expense-balance-amount.is-owed {
+  color: #b91c1c;
+}
+
+.expense-balance-amount.is-settled {
+  color: #166534;
+}

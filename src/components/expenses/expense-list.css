@@ -1,0 +1,269 @@
+.expenses-panel {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.expenses-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.expenses-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.expense-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.expense-item {
+  border: var(--border-default);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.expense-row {
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 2fr 1fr auto auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+}
+
+.expense-row:hover {
+  background: rgba(15, 118, 110, 0.05);
+}
+
+.expense-main {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.expense-description {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.expense-paid-by {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+}
+
+.avatar-initials {
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  background: rgba(15, 118, 110, 0.16);
+  color: var(--color-primary-hover);
+  display: grid;
+  place-items: center;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.expense-amount {
+  font-weight: 700;
+}
+
+.expense-split-badge {
+  padding: 0.2rem 0.45rem;
+  border-radius: var(--radius-xs);
+  border: var(--border-default);
+  background: #f8fafc;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.expense-date {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.expense-splits-wrap {
+  border-top: var(--border-default);
+  padding: 0.75rem 1rem 1rem;
+}
+
+.expense-item-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.55rem;
+}
+
+.expense-delete-btn {
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-danger);
+  color: #fff;
+  padding: 0.45rem 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.expense-delete-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.expense-splits-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.expense-splits-table th,
+.expense-splits-table td {
+  text-align: left;
+  padding: 0.45rem 0.3rem;
+  border-bottom: 1px solid #edf1f4;
+}
+
+.split-status {
+  font-weight: 700;
+}
+
+.split-status-paid {
+  color: #0f766e;
+}
+
+.split-status-owed {
+  color: #b91c1c;
+}
+
+.split-status-settled {
+  color: #166534;
+}
+
+.settled-badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.3rem;
+  padding: 0.05rem 0.35rem;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.settled-yes {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.settled-no {
+  background: #e5e7eb;
+  color: #4b5563;
+}
+
+.expenses-skeleton-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.expense-row-skeleton {
+  padding: 0.9rem 1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+@media (max-width: 860px) {
+  .expense-row {
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+  }
+}
+
+.exact-splits-wrap {
+  display: grid;
+  gap: 0.7rem;
+  border: var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem;
+  background: #fafafa;
+}
+
+.exact-splits-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.exact-split-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.expense-modal {
+  max-width: 560px;
+  max-height: min(90vh, 760px);
+  overflow-y: auto;
+  padding: 1.1rem;
+}
+
+.expense-form {
+  gap: 0.85rem;
+}
+
+.expense-form .groups-label {
+  margin: 0;
+}
+
+.expense-form .groups-input {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.expense-form .exact-split-row .groups-input {
+  min-height: 2.5rem;
+}
+
+.expense-form .exact-split-row .groups-secondary-btn {
+  white-space: nowrap;
+  height: 2.5rem;
+}
+
+.expense-form .exact-splits-wrap > .groups-secondary-btn {
+  width: 100%;
+}
+
+.expense-form .groups-modal-actions {
+  margin-top: 0.2rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .expense-modal {
+    padding: 0.95rem;
+  }
+
+  .exact-split-row {
+    grid-template-columns: 1fr;
+  }
+
+  .expense-form .exact-split-row .groups-secondary-btn {
+    width: 100%;
+  }
+
+  .expense-form .groups-modal-actions {
+    justify-content: stretch;
+  }
+
+  .expense-form .groups-modal-actions .groups-secondary-btn,
+  .expense-form .groups-modal-actions .groups-primary-btn {
+    flex: 1 1 100%;
+  }
+}
