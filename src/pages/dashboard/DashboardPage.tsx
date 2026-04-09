@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { dashboardApi } from '@/api'
+import Skeleton from '@/components/common/Skeleton'
 import type { DashboardResponse } from '@/types'
 import './dashboard-page.css'
 
@@ -54,8 +55,31 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <main className="dashboard-page">
-        <section className="groups-state-card">
-          <p>Loading dashboard...</p>
+        <section className="dashboard-summary-grid" aria-label="Loading dashboard totals">
+          {[1, 2, 3].map((item) => (
+            <article className="dashboard-card dashboard-card-loading" key={item}>
+              <Skeleton height="0.95rem" width="52%" />
+              <Skeleton height="1.2rem" width="68%" />
+            </article>
+          ))}
+        </section>
+
+        <section className="dashboard-section" aria-label="Loading expenses by group">
+          <h2>Expenses By Group</h2>
+          <div className="dashboard-list">
+            {[1, 2, 3].map((item) => (
+              <article className="dashboard-list-row" key={item}>
+                <div>
+                  <Skeleton height="0.9rem" width="9rem" />
+                  <Skeleton height="0.78rem" width="7rem" />
+                </div>
+                <div className="dashboard-row-right">
+                  <Skeleton height="0.78rem" width="4.8rem" />
+                  <Skeleton height="0.9rem" width="6rem" />
+                </div>
+              </article>
+            ))}
+          </div>
         </section>
       </main>
     )

@@ -1,0 +1,65 @@
+.assistant-create-expense {
+  border: var(--border-default);
+  border-radius: var(--radius-md);
+  background: color-mix(in oklab, var(--color-primary) 4%, var(--color-surface) 96%);
+  padding: 0.75rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.assistant-create-expense h3 {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 800;
+}
+
+.assistant-create-expense p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.84rem;
+}
+
+.assistant-create-expense-form {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.assistant-create-expense-form label {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.assistant-create-expense-form select,
+.assistant-create-expense-form input {
+  border: var(--border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 0.48rem 0.58rem;
+}
+
+.assistant-create-expense-form select:focus-visible,
+.assistant-create-expense-form input:focus-visible {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-primary) 20%, transparent 80%);
+}
+
+.assistant-create-expense-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.45rem;
+}
+
+@media (max-width: 640px) {
+  .assistant-create-expense-actions {
+    flex-direction: column;
+  }
+
+  .assistant-create-expense-actions button {
+    width: 100%;
+  }
+}

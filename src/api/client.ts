@@ -9,6 +9,17 @@ function getApiErrorMessage(error: unknown): string {
     'response' in error &&
     typeof (error as { response?: unknown }).response === 'object' &&
     (error as { response?: { data?: unknown } }).response?.data &&
+    typeof (error as { response?: { data?: { error?: unknown } } }).response?.data?.error === 'string'
+  ) {
+    return (error as { response: { data: { error: string } } }).response.data.error
+  }
+
+  if (
+    typeof error === 'object' &&
+    error !== null &&
+    'response' in error &&
+    typeof (error as { response?: unknown }).response === 'object' &&
+    (error as { response?: { data?: unknown } }).response?.data &&
     typeof (error as { response?: { data?: { message?: unknown } } }).response?.data
       ?.message === 'string'
   ) {
@@ -41,7 +52,7 @@ client.interceptors.response.use(
       toastError(getApiErrorMessage(error))
     }
 
-    if (status === 401) {
+    if (status === 401 || status === 403) {
       useAuthStore.getState().logout()
       if (window.location.pathname !== '/login') {
         window.location.assign('/login')

@@ -98,6 +98,13 @@ export interface SettlementSuggestion {
   amount: number
 }
 
+export interface SettlementBalanceResponse {
+  groupId: number
+  payerId: number
+  receiverId: number
+  amount: number
+}
+
 export type LoadingState = 'idle' | 'loading' | 'success' | 'error'
 
 export interface ApiError {

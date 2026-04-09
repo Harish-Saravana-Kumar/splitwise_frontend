@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { balancesApi, expensesApi, usersApi } from '@/api'
+import Skeleton from '@/components/common/Skeleton'
 import SettleUpModal from '@/components/settlements/SettleUpModal'
 import { useAuthStore } from '@/store/authStore'
 import type { Expense, GroupBalances, SettlementSuggestion } from '@/types'
@@ -172,8 +173,13 @@ export default function BalanceSummary({ groupId }: BalanceSummaryProps) {
       </header>
 
       {loading ? (
-        <div className="groups-state-card">
-          <p>Loading balances...</p>
+        <div className="balance-loading-list" aria-label="Loading balances">
+          {[1, 2, 3].map((item) => (
+            <article className="balance-row" key={item}>
+              <Skeleton height="0.9rem" width="42%" />
+              <Skeleton height="0.9rem" width="26%" />
+            </article>
+          ))}
         </div>
       ) : null}
 

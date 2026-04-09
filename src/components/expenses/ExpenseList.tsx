@@ -184,7 +184,8 @@ const ExpenseList = forwardRef<ExpenseListRef, ExpenseListProps>(
 
       {!loading && !error && rows.length === 0 ? (
         <div className="groups-state-card">
-          <p>No expenses added yet.</p>
+          <p className="expenses-empty-title">No expenses added yet.</p>
+          <p className="expenses-empty-sub">Add your first expense to start tracking who owes whom in this group.</p>
         </div>
       ) : null}
 

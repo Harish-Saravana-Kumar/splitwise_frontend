@@ -21,6 +21,11 @@
   gap: 0.6rem;
 }
 
+.balance-loading-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
 .balance-row {
   border: var(--border-default);
   border-radius: var(--radius-md);
@@ -101,6 +106,18 @@
   padding: 0.5rem 0.65rem;
   min-width: 220px;
   font-weight: 600;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.balance-filter-select:hover {
+  border-color: var(--color-primary);
+  background: color-mix(in oklab, var(--color-primary) 4%, var(--color-surface) 96%);
+}
+
+.balance-filter-select:focus-visible {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-primary) 20%, transparent 80%);
 }
 
 .expense-balance-wrap {
@@ -180,4 +197,15 @@
 
 .expense-balance-amount.is-settled {
   color: #166534;
+}
+
+@media (max-width: 640px) {
+  .balance-filter {
+    width: 100%;
+  }
+
+  .balance-filter-select {
+    width: 100%;
+    min-width: 0;
+  }
 }

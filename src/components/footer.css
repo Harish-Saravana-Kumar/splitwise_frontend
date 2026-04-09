@@ -1,0 +1,104 @@
+/* Footer Shell */
+.app-footer {
+  background: var(--color-bg-surface);
+  border-top: 1px solid var(--color-border);
+  box-shadow: none;
+  margin-top: auto;
+  padding: var(--space-6) var(--space-8);
+  width: 100%;
+}
+
+/* Inner max-width container */
+.app-footer__inner {
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+/* Brand + Copyright */
+.app-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.app-footer__logo {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+
+.app-footer__copyright {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* Tagline */
+.app-footer__tagline {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-style: italic;
+  text-align: center;
+  flex: 1;
+}
+
+/* Nav Links */
+.app-footer__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.app-footer__nav a {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+.app-footer__nav a:hover {
+  color: var(--color-brand);
+}
+
+.app-footer__nav a:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .app-footer {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .app-footer__inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-3);
+  }
+
+  .app-footer__tagline {
+    display: none;
+  }
+
+  .app-footer__nav {
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .app-footer__nav a {
+    transition: none;
+  }
+}

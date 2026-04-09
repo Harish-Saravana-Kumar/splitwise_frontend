@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { groupsApi } from '@/api'
+import Skeleton from '@/components/common/Skeleton'
 import BalanceSummary from '@/components/balances/BalanceSummary'
 import ExpenseList from '@/components/expenses/ExpenseList'
 import AddMemberModal from '@/components/groups/AddMemberModal'
@@ -110,8 +111,35 @@ export default function GroupDetailPage() {
   if (loading) {
     return (
       <main className="group-detail-page">
-        <section className="groups-state-card">
-          <p>Loading group details...</p>
+        <header className="group-detail-header">
+          <Skeleton width="6.5rem" height="2.4rem" borderRadius="0.45rem" />
+          <div className="group-detail-actions">
+            <Skeleton width="7rem" height="2.4rem" borderRadius="0.45rem" />
+            <Skeleton width="7.8rem" height="2.4rem" borderRadius="0.45rem" />
+          </div>
+        </header>
+
+        <section className="group-detail-card">
+          <Skeleton width="48%" height="1.25rem" />
+          <Skeleton lines={2} height="0.84rem" />
+          <Skeleton width="35%" height="0.84rem" />
+          <Skeleton width="28%" height="0.84rem" />
+        </section>
+
+        <section className="group-detail-content">
+          <div className="group-detail-tabs">
+            <Skeleton width="5.5rem" height="2.2rem" borderRadius="0.45rem" />
+            <Skeleton width="5.5rem" height="2.2rem" borderRadius="0.45rem" />
+            <Skeleton width="6.5rem" height="2.2rem" borderRadius="0.45rem" />
+          </div>
+          <div className="group-detail-loading-list">
+            {[1, 2, 3].map((item) => (
+              <article className="group-detail-loading-row" key={item}>
+                <Skeleton height="0.92rem" width="45%" />
+                <Skeleton height="0.8rem" width="32%" />
+              </article>
+            ))}
+          </div>
         </section>
       </main>
     )
@@ -288,7 +316,16 @@ export default function GroupDetailPage() {
               </button>
             </div>
 
-            {membersLoading ? <p className="group-members-state">Loading members...</p> : null}
+            {membersLoading ? (
+              <div className="group-members-list" aria-label="Loading members">
+                {[1, 2, 3].map((item) => (
+                  <article className="group-member-row" key={item}>
+                    <Skeleton height="0.86rem" width="60%" />
+                    <Skeleton height="0.72rem" width="35%" />
+                  </article>
+                ))}
+              </div>
+            ) : null}
 
             {!membersLoading && membersError ? (
               <p className="groups-error">{membersError}</p>

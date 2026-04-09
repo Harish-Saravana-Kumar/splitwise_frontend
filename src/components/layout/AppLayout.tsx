@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useAuthStore } from '@/store/authStore'
+import Footer from '../Footer'
 import './app-layout.css'
+import '../footer.css'
 
 export default function AppLayout() {
   const [profileOpen, setProfileOpen] = useState(false)
@@ -50,13 +52,21 @@ export default function AppLayout() {
   return (
     <div className="app-layout">
       <header className="app-top-header">
-        <h1 className="app-brand">Splitwise</h1>
+        <h1 className="app-brand" aria-label="Splitwise">
+          <span className="app-brand-mark" aria-hidden="true">
+            S
+          </span>
+          <span className="app-brand-text">Splitwise</span>
+        </h1>
         <nav className="app-nav app-nav-header" aria-label="Primary navigation">
           <NavLink to="/dashboard" className={navClassName}>
             Dashboard
           </NavLink>
           <NavLink to="/" end className={navClassName}>
             Groups
+          </NavLink>
+          <NavLink to="/about" className={navClassName}>
+            About
           </NavLink>
         </nav>
         <div className="app-header-right">
@@ -119,6 +129,8 @@ export default function AppLayout() {
       <main className="app-content">
         <Outlet />
       </main>
+
+      <Footer />
     </div>
   )
 }
