@@ -99,3 +99,26 @@ The Vite dev server proxies API requests to backend:
 - backend target (dev): `http://localhost:8080`
 
 Make sure backend is running before testing authenticated flows.
+
+## Vercel Deployment
+
+Vercel should deploy this app as a static Vite site. The frontend does not need a Dockerfile for Vercel.
+
+Use these settings in Vercel:
+
+- Build Command: `npm run build`
+- Output Directory: `dist`
+- Root Directory: `splitwise-frontend`
+
+Set this environment variable in Vercel:
+
+- `VITE_API_BASE_URL` = your deployed backend URL, for example `https://your-backend.onrender.com/api`
+
+Deployment order:
+
+1. Create the Vercel project for the frontend.
+2. Deploy the backend on Render and copy its public URL.
+3. Add `VITE_API_BASE_URL` in Vercel and redeploy the frontend.
+4. Test login, Google sign-in, forgot password, and reset password against the deployed backend.
+
+The file [vercel.json](vercel.json) is included to support SPA routing so direct refreshes on routes like `/login` or `/reset-password` work correctly.

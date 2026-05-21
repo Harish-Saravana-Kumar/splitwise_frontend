@@ -3,6 +3,7 @@ import { settlementsApi } from '@/api'
 import Skeleton from '@/components/common/Skeleton'
 import type { Settlement } from '@/types'
 import './settlement-history.css'
+import { useAuthStore } from '@/store/authStore'
 
 interface SettlementHistoryProps {
   groupId: number
@@ -48,6 +49,7 @@ export default function SettlementHistory({ groupId }: SettlementHistoryProps) {
   const [settlements, setSettlements] = useState<Settlement[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const currentUserId = useAuthStore((state) => state.userId)
 
   useEffect(() => {
     const fetchSettlements = async () => {
@@ -56,7 +58,12 @@ export default function SettlementHistory({ groupId }: SettlementHistoryProps) {
 
       try {
         const data = await settlementsApi.getByGroup(groupId)
-        setSettlements(data)
+        if (currentUserId != null) {
+          // show only settlements where the current user is the payer (i.e., owes)
+          setSettlements(data.filter((s) => s.payer.id === currentUserId))
+        } else {
+          setSettlements([])
+        }
       } catch (err) {
         setError(getErrorMessage(err))
       } finally {
@@ -65,7 +72,7 @@ export default function SettlementHistory({ groupId }: SettlementHistoryProps) {
     }
 
     void fetchSettlements()
-  }, [groupId])
+  }, [groupId, currentUserId])
 
   return (
     <section className="settlement-history-panel">

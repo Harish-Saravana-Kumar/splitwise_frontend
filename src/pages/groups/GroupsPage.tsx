@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Skeleton from '@/components/common/Skeleton'
 import { useGroups } from '@/hooks/useGroups'
 import CreateGroupModal from '@/components/groups/CreateGroupModal'
 import type { Group } from '@/types'
 import './groups-page.css'
+import { groupsApi } from '@/api'
+import { useAuthStore } from '@/store/authStore'
 
 function formatDate(value: string): string {
   const date = new Date(value)
@@ -22,14 +24,43 @@ export default function GroupsPage() {
   const navigate = useNavigate()
   const { groups, loading, error, refetch } = useGroups()
   const [isCreateOpen, setIsCreateOpen] = useState(false)
+  const [invitationCount, setInvitationCount] = useState<number | null>(null)
+  const currentUserId = useAuthStore((state) => state.userId)
+
+  useEffect(() => {
+    const fetchInvitationsCount = async () => {
+      try {
+        const invites = await groupsApi.getPendingInvitations()
+        setInvitationCount(invites.length)
+      } catch {
+        setInvitationCount(null)
+      }
+    }
+
+    void fetchInvitationsCount()
+  }, [currentUserId])
 
   return (
     <main className="groups-page">
       <header className="groups-header">
         <h1 className="groups-title">Your Groups</h1>
-        <button className="groups-primary-btn" type="button" onClick={() => setIsCreateOpen(true)}>
-          New group
-        </button>
+        <div className="groups-header-actions">
+          <button
+            className="groups-secondary-btn invites-btn"
+            type="button"
+            onClick={() => navigate('/invitations')}
+          >
+            Invitations
+            {invitationCount && invitationCount > 0 ? (
+              <span className="invites-badge" aria-hidden>
+                {invitationCount}
+              </span>
+            ) : null}
+          </button>
+          <button className="groups-primary-btn" type="button" onClick={() => setIsCreateOpen(true)}>
+            New group
+          </button>
+        </div>
       </header>
 
       {loading ? (

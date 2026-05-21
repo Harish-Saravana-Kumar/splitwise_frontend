@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { groupsApi } from '@/api'
+import { toastSuccess } from '@/store/toastStore'
 
 interface AddMemberModalProps {
   open: boolean
@@ -26,10 +27,9 @@ function getErrorMessage(error: unknown): string {
 }
 
 export default function AddMemberModal({ open, groupId, onClose, onAdded }: AddMemberModalProps) {
-  const [userId, setUserId] = useState('')
+  const [invitedEmail, setInvitedEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
 
   if (!open) {
     return null
@@ -38,19 +38,18 @@ export default function AddMemberModal({ open, groupId, onClose, onAdded }: AddM
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setError(null)
-    setSuccess(null)
 
-    const parsedUserId = Number(userId)
-    if (!Number.isInteger(parsedUserId) || parsedUserId <= 0) {
-      setError('Please enter a valid user ID.')
+    const trimmedEmail = invitedEmail.trim()
+    if (!trimmedEmail || !trimmedEmail.includes('@')) {
+      setError('Please enter a valid email address.')
       return
     }
 
     setLoading(true)
     try {
-      await groupsApi.addMember(groupId, parsedUserId)
-      setSuccess('Member added successfully.')
-      setUserId('')
+      await groupsApi.inviteMember(groupId, { invitedEmail: trimmedEmail })
+      toastSuccess('Invitation sent successfully.')
+      setInvitedEmail('')
       onAdded()
     } catch (err) {
       setError(getErrorMessage(err))
@@ -71,31 +70,28 @@ export default function AddMemberModal({ open, groupId, onClose, onAdded }: AddM
       }}
     >
       <section className="groups-modal">
-        <h2>Add Member</h2>
+        <h2>Invite Member</h2>
 
         <form className="groups-form" onSubmit={handleSubmit}>
           <label className="groups-label">
-            User ID
+            Invitee email
             <input
               className="groups-input"
-              type="number"
-              min={1}
-              step={1}
-              value={userId}
-              onChange={(event) => setUserId(event.target.value)}
+              type="email"
+              value={invitedEmail}
+              onChange={(event) => setInvitedEmail(event.target.value)}
               required
             />
           </label>
 
           {error ? <p className="groups-error">{error}</p> : null}
-          {success ? <p className="groups-success">{success}</p> : null}
 
           <div className="groups-modal-actions">
             <button type="button" className="groups-secondary-btn" onClick={onClose}>
               Close
             </button>
             <button type="submit" className="groups-primary-btn" disabled={loading}>
-              {loading ? 'Adding...' : 'Add member'}
+              {loading ? 'Sending...' : 'Send invite'}
             </button>
           </div>
         </form>

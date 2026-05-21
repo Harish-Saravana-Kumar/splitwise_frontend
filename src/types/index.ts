@@ -4,6 +4,9 @@ export interface AuthResponse {
   name: string
   email: string
   role: string
+  provider?: string | null
+  providerId?: string | null
+  profilePicture?: string | null
 }
 
 export interface LoginRequest {
@@ -11,11 +14,25 @@ export interface LoginRequest {
   password: string
 }
 
+export interface ForgotPasswordRequest {
+  email: string
+}
+
+export interface ResetPasswordRequest {
+  token: string
+  newPassword: string
+  confirmPassword: string
+}
+
 export interface RegisterRequest {
   name: string
   email: string
   password: string
   avatarUrl: null
+}
+
+export interface GoogleAuthRequest {
+  token: string
 }
 
 export interface User {
@@ -31,6 +48,23 @@ export interface Group {
   description: string
   createdBy: User
   createdAt: string
+}
+
+export type GroupInvitationStatus = 'PENDING' | 'ACCEPTED' | 'REJECTED'
+
+export interface InviteMemberRequest {
+  invitedEmail: string
+}
+
+export interface GroupInvitation {
+  id: number
+  groupId: number
+  groupName: string
+  invitedUser: User
+  invitedBy: User
+  status: GroupInvitationStatus
+  createdAt: string
+  respondedAt: string | null
 }
 
 export interface CreateGroupRequest {

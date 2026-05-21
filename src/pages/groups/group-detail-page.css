@@ -169,8 +169,6 @@
   padding: var(--space-4);
   display: grid;
   gap: var(--space-3);
-  position: sticky;
-  top: 1rem;
 }
 
 .group-members-header {
@@ -194,8 +192,10 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--space-3);
-  display: grid;
-  gap: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
   background: color-mix(in oklab, var(--color-bg-surface) 96%, var(--color-neutral-100) 4%);
 }
 

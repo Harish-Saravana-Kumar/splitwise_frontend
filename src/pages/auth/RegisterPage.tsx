@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { authApi } from '@/api'
+import GoogleAuthButton from '@/components/auth/GoogleAuthButton'
 import { useAuthStore } from '@/store/authStore'
 import './auth-pages.css'
 
@@ -102,6 +103,11 @@ export default function RegisterPage() {
             {isSubmitting ? 'Creating account...' : 'Register'}
           </button>
         </form>
+
+        <GoogleAuthButton
+          buttonText="Sign up with Google"
+          loadingText="Creating account with Google..."
+        />
 
         <p className="auth-link-wrap">
           Already have an account?{' '}

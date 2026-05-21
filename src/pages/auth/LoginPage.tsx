@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { authApi } from '@/api'
+import GoogleAuthButton from '@/components/auth/GoogleAuthButton'
 import { useAuthStore } from '@/store/authStore'
 import './auth-pages.css'
 
@@ -89,6 +90,11 @@ export default function LoginPage() {
             {isSubmitting ? 'Logging in...' : 'Login'}
           </button>
         </form>
+
+        <GoogleAuthButton
+          buttonText="Continue with Google"
+          loadingText="Signing in with Google..."
+        />
 
         <p className="auth-link-wrap">
           New here?{' '}

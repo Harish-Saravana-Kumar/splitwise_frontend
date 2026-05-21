@@ -241,7 +241,7 @@ export default function BalanceSummary({ groupId }: BalanceSummaryProps) {
                         currentUserId !== null &&
                         payerId !== null &&
                         receiverId !== null &&
-                        (currentUserId === payerId || currentUserId === receiverId)
+                        currentUserId === payerId
 
                       return (
                         <div

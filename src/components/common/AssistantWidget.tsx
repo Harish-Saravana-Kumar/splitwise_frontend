@@ -285,6 +285,18 @@ export default function AssistantWidget() {
                 <p className="assistant-widget-msg-content">{message.content}</p>
               </article>
             ))}
+            {showCreateExpenseForm ? (
+              <div>
+                <CreateExpenseAssistantForm
+                  open={showCreateExpenseForm}
+                  disabled={loading}
+                  onCancel={() => {
+                    setShowCreateExpenseForm(false)
+                  }}
+                  onSubmit={submitCreateExpenseForm}
+                />
+              </div>
+            ) : null}
           </div>
 
           {pendingConfirmationToken ? (
@@ -301,16 +313,7 @@ export default function AssistantWidget() {
             </div>
           ) : null}
 
-          {showCreateExpenseForm ? (
-            <CreateExpenseAssistantForm
-              open={showCreateExpenseForm}
-              disabled={loading}
-              onCancel={() => {
-                setShowCreateExpenseForm(false)
-              }}
-              onSubmit={submitCreateExpenseForm}
-            />
-          ) : null}
+          {/* moved create-expense form into messages area so it scrolls into view */}
 
           {showSettleUpForm ? (
             <SettleUpAssistantForm

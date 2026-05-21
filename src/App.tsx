@@ -1,7 +1,9 @@
 import './App.css'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import LoginPage from '@/pages/auth/LoginPage'
+import ForgotPasswordPage from '@/pages/auth/ForgotPasswordPage'
 import RegisterPage from '@/pages/auth/RegisterPage'
+import ResetPasswordPage from '@/pages/auth/ResetPasswordPage'
 import ProtectedRoute from '@/components/common/ProtectedRoute'
 import ToastContainer from '@/components/common/ToastContainer'
 import AppLayout from '@/components/layout/AppLayout'
@@ -9,6 +11,7 @@ import PublicLayout from '@/components/layout/PublicLayout'
 import DashboardPage from '@/pages/dashboard/DashboardPage'
 import GroupDetailPage from '@/pages/groups/GroupDetailPage'
 import GroupsPage from '@/pages/groups/GroupsPage'
+import InvitationsPage from '@/pages/groups/InvitationsPage'
 import AboutPage from '@/pages/about/AboutPage'
 import PrivacyPage from '@/pages/privacy/PrivacyPage'
 import TermsPage from '@/pages/terms/TermsPage'
@@ -32,6 +35,8 @@ function App() {
             path="/register"
             element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <RegisterPage />}
           />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
@@ -43,6 +48,7 @@ function App() {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/" element={<GroupsPage />} />
             <Route path="/assistant" element={<AssistantPage />} />
+            <Route path="/invitations" element={<InvitationsPage />} />
             <Route path="/groups/:groupId" element={<GroupDetailPage />} />
           </Route>
         </Route>

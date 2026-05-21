@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { groupsApi } from '@/api'
+import { balancesApi, groupsApi } from '@/api'
 import Skeleton from '@/components/common/Skeleton'
 import BalanceSummary from '@/components/balances/BalanceSummary'
 import ExpenseList from '@/components/expenses/ExpenseList'
@@ -56,6 +56,9 @@ export default function GroupDetailPage() {
   const [members, setMembers] = useState<User[]>([])
   const [membersLoading, setMembersLoading] = useState(false)
   const [membersError, setMembersError] = useState<string | null>(null)
+  const [memberBalances, setMemberBalances] = useState<Record<string, number>>({})
+  const [balancesLoading, setBalancesLoading] = useState(false)
+  const [memberActionId, setMemberActionId] = useState<number | null>(null)
 
   useEffect(() => {
     const fetchGroup = async () => {
@@ -94,14 +97,28 @@ export default function GroupDetailPage() {
       }
 
       setMembersLoading(true)
+      setBalancesLoading(true)
       setMembersError(null)
       try {
-        const data = await groupsApi.getMembers(group.id)
-        setMembers(data)
+        const [membersData, balancesData] = await Promise.all([
+          groupsApi.getMembers(group.id),
+          balancesApi.getGroupBalances(group.id),
+        ])
+        const sanitizedBalances: Record<string, number> = {}
+        Object.entries(balancesData).forEach(([key, value]) => {
+          const numeric = Number(value)
+          if (!Number.isNaN(numeric)) {
+            sanitizedBalances[key] = numeric
+          }
+        })
+        setMemberBalances(sanitizedBalances)
+        setMembers(membersData)
       } catch (err) {
         setMembersError(getErrorMessage(err))
+        setMemberBalances({})
       } finally {
         setMembersLoading(false)
+        setBalancesLoading(false)
       }
     }
 
@@ -184,6 +201,71 @@ export default function GroupDetailPage() {
     }
   }
 
+  const handleLeaveGroup = async () => {
+    if (isCreator) {
+      setError('Group creator cannot leave the group.')
+      return
+    }
+
+    try {
+      const balances = await balancesApi.getGroupBalances(group.id)
+      const currentBalance = Number(balances[String(currentUserId ?? '')] ?? 0)
+      if (!Number.isNaN(currentBalance) && currentBalance !== 0) {
+        setError('Clear your outstanding balance before leaving the group.')
+        return
+      }
+    } catch (err) {
+      setError(getErrorMessage(err))
+      return
+    }
+
+    const confirmed = window.confirm('Leave this group? You will lose access to expenses and balances.')
+    if (!confirmed) {
+      return
+    }
+
+    setIsDeleting(true)
+    try {
+      await groupsApi.leaveGroup(group.id)
+      navigate('/')
+    } catch (err) {
+      setError(getErrorMessage(err))
+    } finally {
+      setIsDeleting(false)
+    }
+  }
+
+  const handleRemoveMember = async (member: User) => {
+    if (!isCreator) {
+      return
+    }
+
+    const confirmed = window.confirm(`Remove ${member.name} from this group?`)
+    if (!confirmed) {
+      return
+    }
+
+    setMemberActionId(member.id)
+    try {
+      await groupsApi.removeMember(group.id, member.id)
+      const updatedMembers = await groupsApi.getMembers(group.id)
+      setMembers(updatedMembers)
+      const balancesData = await balancesApi.getGroupBalances(group.id)
+      const sanitizedBalances: Record<string, number> = {}
+      Object.entries(balancesData).forEach(([key, value]) => {
+        const numeric = Number(value)
+        if (!Number.isNaN(numeric)) {
+          sanitizedBalances[key] = numeric
+        }
+      })
+      setMemberBalances(sanitizedBalances)
+    } catch (err) {
+      setMembersError(getErrorMessage(err))
+    } finally {
+      setMemberActionId(null)
+    }
+  }
+
   return (
     <main className="group-detail-page">
       <header className="group-detail-header">
@@ -197,8 +279,19 @@ export default function GroupDetailPage() {
             type="button"
             onClick={() => setIsAddMemberOpen(true)}
           >
-            Add member
+            Invite member
           </button>
+
+          {!isCreator ? (
+            <button
+              className="groups-secondary-btn"
+              type="button"
+              onClick={() => void handleLeaveGroup()}
+              disabled={isDeleting}
+            >
+              {isDeleting ? 'Leaving...' : 'Leave group'}
+            </button>
+          ) : null}
 
           {isCreator ? (
             <button
@@ -338,8 +431,23 @@ export default function GroupDetailPage() {
                 ) : (
                   members.map((member) => (
                     <article className="group-member-row" key={member.id}>
-                      <p className="group-member-name">{member.name}</p>
-                      <p className="group-member-id">ID: {member.id}</p>
+                      <div>
+                        <p className="group-member-name">{member.name}</p>
+                        <p className="group-member-id">ID: {member.id}</p>
+                      </div>
+                      {isCreator &&
+                      member.id !== group.createdBy.id &&
+                      !balancesLoading &&
+                      Number(memberBalances[String(member.id)] ?? 0) === 0 ? (
+                        <button
+                          type="button"
+                          className="groups-secondary-btn"
+                          onClick={() => void handleRemoveMember(member)}
+                          disabled={memberActionId === member.id}
+                        >
+                          {memberActionId === member.id ? 'Removing...' : 'Remove'}
+                        </button>
+                      ) : null}
                     </article>
                   ))
                 )}
