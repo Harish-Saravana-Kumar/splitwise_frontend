@@ -209,3 +209,28 @@
     min-width: 0;
   }
 }
+
+@media (max-width: 640px) {
+  .balance-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .balance-text {
+    width: 100%;
+    text-align: left;
+  }
+
+  .expense-balance-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .expense-balance-card,
+  .balance-row,
+  .suggestion-row {
+    padding: 0.65rem 0.75rem;
+  }
+}

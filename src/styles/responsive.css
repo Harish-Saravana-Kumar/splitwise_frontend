@@ -1,0 +1,60 @@
+/* Responsive variable overrides and utility helpers */
+
+@media (max-width: 900px) {
+  :root {
+    --max-width-content: calc(100% - 48px);
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --max-width-content: calc(100% - 32px);
+    --space-6: 16px;
+    --space-8: 16px;
+    --space-10: 28px;
+    --header-height: 56px;
+    --sidebar-width: 0px;
+    --font-size-base: 14px;
+  }
+
+  /* Make modals and popovers full-width with safe padding */
+  .expense-modal,
+  .app-profile-popover,
+  .app-profile-popover {
+    left: var(--space-2);
+    right: var(--space-2);
+    max-width: none;
+    width: calc(100% - var(--space-4));
+  }
+
+  /* Utility to stack items vertically on mobile */
+  .stack-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  /* Ensure key card paddings are smaller on narrow screens */
+  .card,
+  .dashboard-card,
+  .group-card,
+  .expense-item,
+  .expense-balance-card {
+    padding: var(--space-4);
+  }
+
+  /* Make header nav scrollable and compact */
+  .app-nav-header {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Ensure primary content fills viewport width */
+  .dashboard-page,
+  .groups-page,
+  .home-page {
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+  }
+}

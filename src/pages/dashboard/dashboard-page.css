@@ -167,6 +167,16 @@
 }
 
 @media (max-width: 640px) {
+  .dashboard-summary-grid {
+    gap: var(--space-3);
+  }
+
+  .dashboard-header h1 {
+    font-size: var(--font-size-xl);
+  }
+}
+
+@media (max-width: 640px) {
   .dashboard-card {
     padding: var(--space-4);
   }

@@ -251,4 +251,17 @@
   .app-content {
     padding: var(--space-4);
   }
+
+  .app-brand {
+    font-size: var(--font-size-md);
+    gap: var(--space-1);
+  }
+
+  .app-brand-text {
+    display: none;
+  }
+
+  .app-nav {
+    gap: var(--space-1);
+  }
 }
