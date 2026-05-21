@@ -80,16 +80,18 @@ export default function SettleUpAssistantForm({
         const positiveMembers = rows.filter((member) => (groupBalances[String(member.id)] ?? 0) > 0)
         const negativeMembers = rows.filter((member) => (groupBalances[String(member.id)] ?? 0) < 0)
 
-        if (negativeMembers.length > 0) {
-          setPayerId(String(negativeMembers[0].id))
+        // payerId should be the paid-by / creditor (people who are owed money)
+        if (positiveMembers.length > 0) {
+          setPayerId(String(positiveMembers[0].id))
         } else if (rows.length > 0) {
           setPayerId(String(rows[0].id))
         } else {
           setPayerId('')
         }
 
-        if (positiveMembers.length > 0) {
-          setReceiverId(String(positiveMembers[0].id))
+        // receiverId should be the debtor (people who owe money)
+        if (negativeMembers.length > 0) {
+          setReceiverId(String(negativeMembers[0].id))
         } else if (rows.length > 1) {
           setReceiverId(String(rows[1].id))
         } else if (rows.length > 0) {
@@ -162,13 +164,15 @@ export default function SettleUpAssistantForm({
   }, [amount, disabled, groupId, loadingOptions, payerId, pendingAmount, receiverId])
 
   const payerOptions = useMemo(() => {
-    const debtors = members.filter((member) => (balances[String(member.id)] ?? 0) < 0)
-    return debtors.length > 0 ? debtors : members
+    // payer = people who are owed money (creditors)
+    const lenders = members.filter((member) => (balances[String(member.id)] ?? 0) > 0)
+    return lenders.length > 0 ? lenders : members
   }, [balances, members])
 
   const receiverOptions = useMemo(() => {
-    const lenders = members.filter((member) => (balances[String(member.id)] ?? 0) > 0)
-    return lenders.length > 0 ? lenders : members
+    // receiver = people who owe money (debtors)
+    const debtors = members.filter((member) => (balances[String(member.id)] ?? 0) < 0)
+    return debtors.length > 0 ? debtors : members
   }, [balances, members])
 
   const renderBalanceLabel = (member: User) => {
@@ -215,8 +219,9 @@ export default function SettleUpAssistantForm({
       return
     }
 
-    if (userId === null || (userId !== parsedPayerId && userId !== parsedReceiverId)) {
-      setFormError('Only the expense payer or the owed person can settle up.')
+    // Enforce only the expense payer (paid-by / collector) may perform settlement
+    if (userId === null || userId !== parsedPayerId) {
+      setFormError('Only the expense payer can settle up.')
       return
     }
 
@@ -252,7 +257,7 @@ export default function SettleUpAssistantForm({
         </label>
 
         <label>
-          Payer owes money
+          Payer (is owed money)
           <select
             value={payerId}
             onChange={(event) => setPayerId(event.target.value)}
@@ -267,7 +272,7 @@ export default function SettleUpAssistantForm({
         </label>
 
         <label>
-          Receiver is owed money
+          Receiver (owes money)
           <select
             value={receiverId}
             onChange={(event) => setReceiverId(event.target.value)}
