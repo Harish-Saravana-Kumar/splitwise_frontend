@@ -60,6 +60,36 @@
   gap: 0.45rem;
 }
 
+/* Make form full-width and stretch within assistant messages on small screens */
+@media (max-width: 640px) {
+  .assistant-create-expense {
+    width: 100%;
+    max-width: none;
+    align-self: stretch;
+    justify-self: stretch;
+    padding: var(--space-3);
+  }
+
+  .assistant-create-expense h3 {
+    font-size: var(--font-size-md);
+  }
+
+  .assistant-create-expense-form label {
+    font-size: 0.9rem;
+  }
+
+  .assistant-create-expense-actions {
+    flex-direction: column-reverse;
+    gap: var(--space-2);
+  }
+
+  .assistant-create-expense-actions .groups-secondary-btn {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+  }
+}
+
 @media (max-width: 640px) {
   .assistant-create-expense-actions {
     flex-direction: column;
