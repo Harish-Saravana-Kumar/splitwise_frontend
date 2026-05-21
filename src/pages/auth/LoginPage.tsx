@@ -7,16 +7,24 @@ import { useAuthStore } from '@/store/authStore'
 import './auth-pages.css'
 
 function getErrorMessage(error: unknown): string {
+  // Prefer structured API messages
   if (
     typeof error === 'object' &&
     error !== null &&
     'response' in error &&
-    typeof (error as { response?: unknown }).response === 'object' &&
-    (error as { response?: { data?: unknown } }).response?.data &&
-    typeof (error as { response?: { data?: { message?: unknown } } }).response?.data
-      ?.message === 'string'
+    typeof (error as { response?: unknown }).response === 'object'
   ) {
-    return (error as { response: { data: { message: string } } }).response.data.message
+    const resp = (error as { response: { status?: number; data?: any } }).response
+    if (resp?.status === 404) {
+      return 'Email is not registered. Please register first.'
+    }
+    if (resp?.status === 401) {
+      return 'Invalid credentials. Please check your password.'
+    }
+
+    if (resp?.data && typeof resp.data.message === 'string') {
+      return resp.data.message
+    }
   }
 
   return 'Login failed. Please check your credentials and try again.'
