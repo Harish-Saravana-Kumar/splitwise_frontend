@@ -2,6 +2,16 @@ import axios from 'axios'
 import { useAuthStore } from '@/store/authStore'
 import { toastError } from '@/store/toastStore'
 
+function getApiBaseURL(): string {
+  const configuredBaseUrl = import.meta.env.VITE_API_BASE_URL ?? '/api'
+
+  if (configuredBaseUrl.endsWith('/api')) {
+    return configuredBaseUrl
+  }
+
+  return `${configuredBaseUrl.replace(/\/$/, '')}/api`
+}
+
 function getApiErrorMessage(error: unknown): string {
   if (
     typeof error === 'object' &&
@@ -30,7 +40,7 @@ function getApiErrorMessage(error: unknown): string {
 }
 
 const client = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL ?? '/api',
+  baseURL: getApiBaseURL(),
 })
 
 client.interceptors.request.use((config) => {
