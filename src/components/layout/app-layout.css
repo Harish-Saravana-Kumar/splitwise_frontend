@@ -62,6 +62,17 @@
   color: var(--color-brand-hover);
 }
 
+.app-nav-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-brand) 20%, transparent 80%);
+}
+
+.app-mobile-menu-trigger:focus-visible,
+.app-profile-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
 .app-nav-link:hover {
   background: var(--color-bg-overlay);
   color: var(--color-text-primary);
@@ -119,9 +130,10 @@
 }
 
 .app-profile-popover {
-  position: absolute;
-  top: calc(100% + var(--space-2));
-  right: 0;
+    position: fixed;
+    top: calc(var(--header-height) + var(--space-2));
+    right: var(--space-2);
+    left: auto;
   z-index: 65;
   width: min(18.5rem, calc(100vw - var(--space-4)));
   border: 1px solid var(--color-border);
@@ -130,6 +142,15 @@
   box-shadow: var(--shadow-lg);
   overflow: hidden;
 }
+
+  /* Make profile popover dock under header and full-width on very small screens */
+  .app-profile-popover {
+    left: var(--space-2);
+    right: var(--space-2);
+    width: auto;
+    max-width: none;
+    z-index: 80;
+  }
 
 .app-profile-popover-header {
   display: flex;

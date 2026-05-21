@@ -62,6 +62,14 @@
   transition: color var(--transition-base);
 }
 
+  /* Larger tappable area for footer links on mobile */
+  @media (max-width: 640px) {
+    .app-footer__nav a {
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
 .app-footer__nav a:hover {
   color: var(--color-brand);
 }
@@ -93,6 +101,13 @@
     gap: var(--space-4);
     flex-wrap: wrap;
     justify-content: center;
+  }
+}
+
+/* Hide footer nav on very small screens to avoid duplication with mobile drawer */
+@media (max-width: 480px) {
+  .app-footer__nav {
+    display: none;
   }
 }
 

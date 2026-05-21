@@ -16,6 +16,11 @@ body,
   min-height: 100vh;
 }
 
+/* Prevent occasional horizontal overflow from components */
+html, body {
+  overflow-x: hidden;
+}
+
 html,
 body,
 h1,
