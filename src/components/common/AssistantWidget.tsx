@@ -266,6 +266,15 @@ export default function AssistantWidget() {
   return (
     <div className="assistant-widget-root" aria-live="polite">
       {open ? (
+        <button
+          type="button"
+          className="assistant-widget-backdrop"
+          aria-label="Close assistant chat"
+          onClick={() => setOpen(false)}
+        />
+      ) : null}
+
+      {open ? (
         <section className="assistant-widget-panel" aria-label="Assistant widget">
           <button
             type="button"

@@ -9,6 +9,15 @@
   justify-items: end;
 }
 
+.assistant-widget-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  border: 0;
+  background: rgba(15, 23, 42, 0.38);
+  cursor: default;
+}
+
 .assistant-widget-trigger {
   border: 1px solid transparent;
   border-radius: var(--radius-full);
@@ -40,6 +49,7 @@
   overflow: hidden;
   margin-bottom: var(--space-3);
   position: relative;
+  z-index: 1;
 }
 
 .assistant-widget-close {
@@ -141,6 +151,10 @@
     padding: 0 var(--space-2);
   }
 
+  .assistant-widget-backdrop {
+    background: rgba(15, 23, 42, 0.5);
+  }
+
   .assistant-widget-trigger {
     justify-self: end;
   }
@@ -148,14 +162,19 @@
   .assistant-widget-panel {
     width: 100%;
     max-width: none;
-    min-height: 62vh;
-    max-height: calc(100vh - var(--assistant-footer-clearance) - var(--space-2));
+    height: calc(100dvh - var(--assistant-footer-clearance) - var(--space-2));
+    min-height: 0;
+    max-height: calc(100dvh - var(--assistant-footer-clearance) - var(--space-2));
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
     margin-bottom: 0;
   }
 
   .assistant-widget-messages {
     padding: 40px var(--space-3) var(--space-3);
+  }
+
+  .assistant-widget-msg {
+    max-width: 100%;
   }
 
   .assistant-widget-composer {

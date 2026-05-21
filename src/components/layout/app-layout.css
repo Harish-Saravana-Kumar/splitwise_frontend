@@ -208,6 +208,59 @@
   gap: var(--space-4);
 }
 
+.app-mobile-menu-trigger {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-xs);
+}
+
+.app-mobile-menu-trigger:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.app-mobile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  border: 0;
+  background: rgba(15, 23, 42, 0.38);
+}
+
+.app-mobile-menu {
+  position: fixed;
+  top: var(--header-height);
+  right: var(--space-2);
+  z-index: 75;
+  width: min(18rem, calc(100vw - var(--space-4)));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-3);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.app-mobile-menu-nav,
+.app-mobile-menu-footer {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.app-mobile-menu-nav .app-nav-link,
+.app-mobile-menu-footer .app-nav-link {
+  width: 100%;
+  justify-content: flex-start;
+}
+
 .app-content {
   flex: 1;
   padding: var(--space-8);
@@ -229,23 +282,22 @@
     gap: var(--space-2);
   }
 
+  .app-mobile-menu-trigger {
+    display: inline-flex;
+  }
+
   .app-nav-header {
-    justify-content: flex-start;
-    overflow-x: auto;
-    flex: 1;
-    scrollbar-width: thin;
+    display: none;
   }
 
-  .app-nav-link {
-    white-space: nowrap;
-    min-height: 44px;
+  .app-header-right {
+    gap: var(--space-1);
   }
 
-  .app-profile-popover {
-    position: fixed;
+  .app-mobile-menu {
     top: calc(var(--header-height) + var(--space-2));
     right: var(--space-2);
-    left: auto;
+    width: min(20rem, calc(100vw - var(--space-4)));
   }
 
   .app-content {
