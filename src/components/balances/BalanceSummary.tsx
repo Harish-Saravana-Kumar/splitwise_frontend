@@ -253,14 +253,15 @@ export default function BalanceSummary({ groupId }: BalanceSummaryProps) {
                             {formatCurrency(item.amount)}
                           </p>
 
-                          <button
-                            className="groups-primary-btn"
-                            type="button"
-                            onClick={() => setSelectedSuggestion(item)}
-                            disabled={!canSettle}
-                          >
-                            Settle
-                          </button>
+                          {canSettle ? (
+                            <button
+                              className="groups-primary-btn"
+                              type="button"
+                              onClick={() => setSelectedSuggestion(item)}
+                            >
+                              Settle
+                            </button>
+                          ) : null}
                         </div>
                       )
                     })()
