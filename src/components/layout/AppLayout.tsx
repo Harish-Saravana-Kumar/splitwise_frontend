@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { useLocation, NavLink } from 'react-router-dom'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useAuthStore } from '@/store/authStore'
 import Footer from '../Footer'
