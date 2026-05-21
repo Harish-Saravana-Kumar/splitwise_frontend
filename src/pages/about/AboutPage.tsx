@@ -39,6 +39,9 @@ export default function AboutPage() {
         <Link className="about-link" to="/login">
           Sign In
         </Link>
+        <Link className="about-link" to="/">
+          View Groups
+        </Link>
         <Link className="about-link" to="/dashboard">
           Open Dashboard
         </Link>
