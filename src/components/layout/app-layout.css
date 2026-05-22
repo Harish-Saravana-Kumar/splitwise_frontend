@@ -139,27 +139,18 @@
 }
 
 .app-profile-popover {
-    position: fixed;
-    top: calc(var(--header-height) + var(--space-2));
-    right: var(--space-2);
-    left: auto;
+  position: fixed;
+  top: calc(var(--header-height) + var(--space-2));
+  right: var(--space-2);
+  left: auto;
   z-index: 65;
-  width: min(16.5rem, calc(100vw - var(--space-4)));
+  width: min(18rem, calc(100vw - var(--space-4)));
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   background: var(--color-bg-surface);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
 }
-
-  /* Make profile popover dock under header and full-width on very small screens */
-  .app-profile-popover {
-    left: var(--space-2);
-    right: var(--space-2);
-    width: auto;
-    max-width: none;
-    z-index: 80;
-  }
 
 .app-profile-popover-header {
   display: flex;
@@ -332,6 +323,14 @@
     top: calc(var(--header-height) + var(--space-2));
     right: var(--space-2);
     width: min(20rem, calc(100vw - var(--space-4)));
+  }
+
+  .app-profile-popover {
+    left: var(--space-2);
+    right: var(--space-2);
+    width: calc(100vw - var(--space-4));
+    max-width: none;
+    z-index: 80;
   }
 
   .app-mobile-menu-nav .app-nav-link {

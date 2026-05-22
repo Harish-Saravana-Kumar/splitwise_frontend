@@ -23,7 +23,7 @@
     left: var(--space-2);
     right: var(--space-2);
     max-width: none;
-    width: calc(100% - var(--space-4));
+    width: calc(100vw - var(--space-4));
   }
 
   /* Utility to stack items vertically on mobile */
