@@ -144,7 +144,7 @@
     right: var(--space-2);
     left: auto;
   z-index: 65;
-  width: min(18.5rem, calc(100vw - var(--space-4)));
+  width: min(16.5rem, calc(100vw - var(--space-4)));
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   background: var(--color-bg-surface);

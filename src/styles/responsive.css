@@ -19,7 +19,6 @@
 
   /* Make modals and popovers full-width with safe padding */
   .expense-modal,
-  .app-profile-popover,
   .app-profile-popover {
     left: var(--space-2);
     right: var(--space-2);
